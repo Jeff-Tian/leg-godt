@@ -1,9 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
+builder.Logging.AddJsonConsole();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+app.Logger.LogInformation("The leg-godt app started");
 app.MapGet("/test", () => "Hello Test!");
 
 // Configure the HTTP request pipeline.
