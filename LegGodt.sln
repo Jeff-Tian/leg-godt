@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowLegGodt", "SpecFlowLegGodt\SpecFlowLegGodt.csproj", "{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{75DD2940-3B0B-4069-9E52-87E1E46E184C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache", "Cache\Cache.csproj", "{29F61A59-3B35-4592-879E-1940CA1D8926}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75DD2940-3B0B-4069-9E52-87E1E46E184C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DD2940-3B0B-4069-9E52-87E1E46E184C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DD2940-3B0B-4069-9E52-87E1E46E184C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DD2940-3B0B-4069-9E52-87E1E46E184C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29F61A59-3B35-4592-879E-1940CA1D8926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29F61A59-3B35-4592-879E-1940CA1D8926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29F61A59-3B35-4592-879E-1940CA1D8926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29F61A59-3B35-4592-879E-1940CA1D8926}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
