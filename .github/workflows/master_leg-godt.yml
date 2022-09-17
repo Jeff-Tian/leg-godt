@@ -25,9 +25,12 @@ jobs:
       - name: Test with dotnet
         run: |
           dotnet test
+          
           dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
-          livingdoc
-          ls SpecFlowLegGodt/bin/Debug/
+          
+          livingdoc test-assembly SpecFlowLegGodt/bin/Debug/net6.0/SpecFlowLegGodt.dll -t SpecFlowLegGodt/bin/Debug/net6.0/TestExecution.json
+          
+          ls .
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
