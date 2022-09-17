@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with: 
           name: livingdoc
-          path: ${{env.DOTNET_ROOT}}/LivingDoc.html
+          path: .
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
