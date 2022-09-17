@@ -60,11 +60,14 @@ jobs:
         with:
           name: livingdoc
 
+      - name: List files
+        run: ls .
+
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./livingdoc
 
   deploy:
     runs-on: windows-latest
