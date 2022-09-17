@@ -23,7 +23,11 @@ jobs:
           include-prerelease: true
 
       - name: Test with dotnet
-        run: dotnet test
+        run: |
+          dotnet test
+          dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+          livingdoc
+          ls SpecFlowLegGodt/bin/Debug/
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
