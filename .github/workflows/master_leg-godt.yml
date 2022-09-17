@@ -32,6 +32,12 @@ jobs:
           
           ls .
 
+      - name: Upload livingdoc for gh-pages
+        uses: actions/upload-artifact@v2
+        with: 
+          name: livingdoc
+          path: ${{env.DOTNET_ROOT}}/LivingDoc.html
+
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
@@ -43,6 +49,22 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+
+  gh-pages:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: livingdoc
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
 
   deploy:
     runs-on: windows-latest
