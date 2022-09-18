@@ -1,12 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpecFlowLegGodt", "SpecFlowLegGodt\SpecFlowLegGodt.csproj", "{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32811.315
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpecFlowLegGodt", "SpecFlowLegGodt\SpecFlowLegGodt.csproj", "{5A3C2471-AD11-438E-8D14-2E3869AFBB8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{75DD2940-3B0B-4069-9E52-87E1E46E184C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "Web\Web.csproj", "{75DD2940-3B0B-4069-9E52-87E1E46E184C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache", "Cache\Cache.csproj", "{29F61A59-3B35-4592-879E-1940CA1D8926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache", "Cache\Cache.csproj", "{29F61A59-3B35-4592-879E-1940CA1D8926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wecom", "Wecom\Wecom.csproj", "{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wecom", "Wecom\Wecom.csproj", "{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决方案项", "{C5878139-6E91-464A-9D1B-861B02C6B887}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
+		docker-compose.yml = docker-compose.yml
+		Dockerfile.linux = Dockerfile.linux
+		Dockerfile.windows = Dockerfile.windows
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +43,11 @@ Global
 		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B15BAAEE-4DD9-4982-95A7-34D4C4532B7D}
 	EndGlobalSection
 EndGlobal
