@@ -10,14 +10,12 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" });
-});
+builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" }); });
 
 var app = builder.Build();
 app.Logger.LogInformation("The leg-godt app started");
 app.MapGet("/test", () => "Hello Test!");
+app.MapGet("/api/wecom/token/hardway", () => "");
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -40,3 +38,7 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
+
+public partial class Program
+{
+}
