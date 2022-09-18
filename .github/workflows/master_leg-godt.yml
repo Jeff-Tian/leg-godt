@@ -10,19 +10,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test:
     runs-on: windows-latest
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '6.0.x'
-          include-prerelease: true
+      - name: Check out repository code
+        uses: actions/checkout@v3
 
       - name: Test with dotnet
+        env:
+          REDIS_HOST: localhost
+          REDIS_PASSWORD: ""
         run: |
           dotnet test
           
@@ -37,6 +45,20 @@ jobs:
         with: 
           name: livingdoc
           path: .
+
+
+  build:
+    runs-on: windows-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.0.x'
+          include-prerelease: true
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
