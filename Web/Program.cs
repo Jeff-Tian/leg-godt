@@ -1,9 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using Web.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddJsonConsole();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
+builder.Services.AddDbContext<TodoContext>(opt =>
+    opt.UseInMemoryDatabase("TodoList"));
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" });
