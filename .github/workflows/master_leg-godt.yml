@@ -74,7 +74,7 @@ jobs:
 
   gh-pages:
     runs-on: windows-latest
-    needs: build
+    needs: test
 
     steps:
       - name: Download artifact from build job
