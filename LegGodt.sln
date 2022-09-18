@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache", "Cache\Cache.csproj", "{29F61A59-3B35-4592-879E-1940CA1D8926}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wecom", "Wecom\Wecom.csproj", "{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{29F61A59-3B35-4592-879E-1940CA1D8926}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29F61A59-3B35-4592-879E-1940CA1D8926}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29F61A59-3B35-4592-879E-1940CA1D8926}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C9DE830-5237-44E4-BCC8-8F3C2B801DA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
