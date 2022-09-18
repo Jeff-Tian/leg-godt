@@ -1,12 +1,13 @@
-﻿namespace Cache;
+﻿using StackExchange.Redis;
+
+namespace Cache;
 
 public static class Cache
 {
-    private static string _cache = "";
-
-    public static string Set(string key, string value)
+    public static bool Set(string key, string value)
     {
-        _cache = value;
-        return "success";
+        var redis = ConnectionMultiplexer.Connect("localhost,password=eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81");
+        var db = redis.GetDatabase();
+        return db.StringSet(key, value);
     }
 }
