@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "LegGod
 var app = builder.Build();
 app.Logger.LogInformation("The leg-godt app started");
 app.MapGet("/test", () => "Hello Test!");
-app.MapGet("/api/wecom/token/hardway", () => "");
+app.MapControllers();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

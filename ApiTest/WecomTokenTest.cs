@@ -13,7 +13,7 @@ namespace ApiTest
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
 
             var body = await res.Content.ReadAsStringAsync();
-            Assert.AreEqual("", body);
+            Assert.AreEqual("{\"accessToken\":\"abc\"}", body);
         }
 
         HttpClient client;
