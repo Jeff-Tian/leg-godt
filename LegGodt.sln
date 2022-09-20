@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		Dockerfile.linux = Dockerfile.linux
 		Dockerfile.windows = Dockerfile.windows
 		README.md = README.md
+		init.sql = init.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{15707AD1-16B6-480D-A73E-23E98255E6F6}"
@@ -26,6 +27,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebTest", "WebTest\WebTest.csproj", "{0D1467D2-FEFC-46E5-BD7A-10985255C368}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiTest", "ApiTest\ApiTest.csproj", "{CFC3B136-50A4-4023-9A99-52F1521F0289}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store.csproj", "{372761AD-5DF4-4475-A0DA-42FA34D1916A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +64,10 @@ Global
 		{CFC3B136-50A4-4023-9A99-52F1521F0289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFC3B136-50A4-4023-9A99-52F1521F0289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFC3B136-50A4-4023-9A99-52F1521F0289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{372761AD-5DF4-4475-A0DA-42FA34D1916A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{372761AD-5DF4-4475-A0DA-42FA34D1916A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{372761AD-5DF4-4475-A0DA-42FA34D1916A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{372761AD-5DF4-4475-A0DA-42FA34D1916A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
