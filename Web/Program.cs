@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Store;
 using Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
+builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
 
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" }); });
 

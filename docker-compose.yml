@@ -8,6 +8,17 @@ services:
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes:
       - cache:/data
+  store:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: leggodt
+      POSTGRES_USER: leggodt
+      POSTGRES_PASSWORD: nopwd
+    volumes:
+      - postgres:/var/lib/postgresql/data
 volumes:
+  postgres: ~
   cache:
     driver: local
