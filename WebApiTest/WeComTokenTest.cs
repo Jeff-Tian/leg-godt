@@ -8,6 +8,7 @@ namespace WebApiTest
         [Fact]
         public async Task Test1()
         {
+            Environment.SetEnvironmentVariable("ENV", "test");
             var application = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {

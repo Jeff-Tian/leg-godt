@@ -19,6 +19,7 @@ namespace ApiTest
         HttpClient client;
         [TestInitialize]
         public void Setup() {
+            Environment.SetEnvironmentVariable("ENV", "test");
             var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder=>{});
 
             client = application.CreateClient();
