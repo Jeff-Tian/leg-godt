@@ -46,8 +46,8 @@ public class CorporationController : ControllerBase
     }
 
     [HttpGet("{name}")]
-    public IActionResult GetCorp(string name)
+    public async Task<ActionResult<Corporation>> GetCorp(string name)
     {
-        throw new NotImplementedException();
+        return await _context.WecomCorps.FirstAsync(x => x.Name.Equals(name));
     }
 }
