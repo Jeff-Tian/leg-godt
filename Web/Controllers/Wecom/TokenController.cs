@@ -10,6 +10,11 @@ public class TokenController : ControllerBase
 {
     private readonly WecomCorpContext _context;
 
+    public TokenController(WecomCorpContext context)
+    {
+        _context = context;
+    }
+
     [HttpGet("{wecomEnterpriseName}")]
     public async Task<AccessToken> GetToken(string wecomEnterpriseName)
     {
