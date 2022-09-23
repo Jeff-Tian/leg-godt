@@ -19,10 +19,7 @@ namespace WebApiTest
             
             
             var res = await client.GetAsync("/api/wecom/Token/hardway");
-            Assert.Equal(HttpStatusCode.OK, res.StatusCode);
-
-            var body = await res.Content.ReadAsStringAsync();
-            Assert.Equal("{\"accessToken\":\"abc\"}", body);
+            Assert.Equal(HttpStatusCode.InternalServerError, res.StatusCode);
         }
     }
 }
