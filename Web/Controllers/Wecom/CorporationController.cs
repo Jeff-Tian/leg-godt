@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Store;
 using Web.Models;
 
@@ -27,6 +28,21 @@ public class CorporationController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction("GetCorp", new { name = corp.Name }, corp);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Corporation>> UpdateCorp(long id, Corporation corp)
+    {
+        if (id != corp.Id)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(corp).State = EntityState.Modified;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
     }
 
     [HttpGet("{name}")]
