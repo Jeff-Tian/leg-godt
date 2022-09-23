@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Store;
+using Web;
 using Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,11 +11,27 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
-builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
+if (builder.Configuration["ENV"] is "test")
+{
+    builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
+}
+else
+{
+    builder.Services.AddDbContext<WecomCorpContext>(options =>
+    {
+        options.UseNpgsql(builder.Configuration["PostgresConnectionString"]);
+    });
+}
 
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" }); });
 
 var app = builder.Build();
+
+if (builder.Configuration["ENV"] is not "test")
+{
+    app.EnsureMigrationOfContext<WecomCorpContext>();
+}
+
 app.Logger.LogInformation("The leg-godt app started");
 app.MapGet("/test", () => "Hello Test!");
 app.MapControllers();
