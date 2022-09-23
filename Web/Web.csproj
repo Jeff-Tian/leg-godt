@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Store\Store.csproj" />
+    <ProjectReference Include="..\Wecom\Wecom.csproj" />
   </ItemGroup>
 
 </Project>

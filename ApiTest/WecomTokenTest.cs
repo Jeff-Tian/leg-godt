@@ -10,10 +10,7 @@ namespace ApiTest
         public async Task TestGetTokenOk()
         {
             var res = await client.GetAsync("/api/wecom/token/hardway");
-            Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
-
-            var body = await res.Content.ReadAsStringAsync();
-            Assert.AreEqual("{\"accessToken\":\"abc\"}", body);
+            Assert.AreEqual(HttpStatusCode.InternalServerError, res.StatusCode);
         }
 
         HttpClient client;

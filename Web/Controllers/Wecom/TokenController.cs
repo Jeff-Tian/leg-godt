@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Web.Models;
+using Store;
+using UniHeart.Wecom;
 
 namespace Web.Controllers.Wecom;
 
@@ -7,14 +8,12 @@ namespace Web.Controllers.Wecom;
 [ApiController]
 public class TokenController : ControllerBase
 {
-    [HttpGet("{wecomEnterpriseName}")]
-    public async Task<ActionResult<Token>> GetToken(string wecomEnterpriseName)
-    {
-        if (wecomEnterpriseName.Equals("hardway"))
-        {
-            return new Token() { AccessToken = "abc" };
-        }
+    private readonly WecomCorpContext _context;
 
-        return BadRequest();
+    [HttpGet("{wecomEnterpriseName}")]
+    public async Task<AccessToken> GetToken(string wecomEnterpriseName)
+    {
+        var wecom = new UniHeart.Wecom.Wecom(_context, null);
+        return await wecom.GetAccessToken(wecomEnterpriseName);
     }
 }
