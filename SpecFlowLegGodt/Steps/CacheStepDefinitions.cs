@@ -12,6 +12,7 @@ public class CacheStepDefinitions
     [Given(@"the value is '(.*)'")]
     public void GivenTheValueIs(string value)
     {
+        Environment.SetEnvironmentVariable("ENV", "test");
         _value = value;
     }
 
