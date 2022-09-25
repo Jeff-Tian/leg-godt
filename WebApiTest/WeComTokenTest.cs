@@ -1,5 +1,9 @@
+using System.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using Store;
+using Web.Models;
 
 namespace WebApiTest
 {
@@ -17,9 +21,18 @@ namespace WebApiTest
 
             var client = application.CreateClient();
             
+            var scope = application.Services.CreateScope();
+            var wecomContext = scope.ServiceProvider.GetService<WecomCorpContext>();
+            var fakeCorp = Corporation.GetFakeCorp();
+
+            Debug.Assert(wecomContext != null, nameof(wecomContext) + " != null");
+
+            wecomContext.WecomCorps.Add(fakeCorp);
+            wecomContext.SaveChanges();
+            
             
             var res = await client.GetAsync("/api/wecom/Token/hardway");
-            Assert.Equal(HttpStatusCode.InternalServerError, res.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }
     }
 }
