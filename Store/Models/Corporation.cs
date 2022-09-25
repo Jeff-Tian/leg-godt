@@ -6,4 +6,14 @@ public class Corporation
     public string Name { get; set; }
     public string CorpId { get; set; }
     public string CorpSecret { get; set; }
+
+    public static Corporation GetFakeCorp()
+    {
+        return new Corporation
+        {
+            Name = "hardway",
+            CorpId = "123",
+            CorpSecret = "abc"
+        };
+    }
 }

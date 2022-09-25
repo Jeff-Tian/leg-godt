@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Cache\Cache.csproj" />
+      <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
       <ProjectReference Include="..\Wecom\Wecom.csproj" />
     </ItemGroup>
 

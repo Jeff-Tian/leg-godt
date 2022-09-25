@@ -1,6 +1,4 @@
-using FluentAssertions.Execution;
 using Microsoft.EntityFrameworkCore;
-using RichardSzalay.MockHttp;
 using Store;
 using UniHeart.Wecom;
 using Web.Models;
@@ -19,27 +17,20 @@ public class WecomStepDefinitions
     {
         _enterprise = hardway;
 
-        var _mockCorp = new Corporation { CorpId = "1234", CorpSecret = "abcd", Name = hardway };
+        var mockCorp = Corporation.GetFakeCorp();
+        mockCorp.Name = hardway;
 
-        var _msgHandler = new MockHttpMessageHandler();
-        _msgHandler.When(
-                $"https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={_mockCorp.CorpId}&corpsecret={_mockCorp.CorpSecret}")
-            .Respond("application/json", @"{
-    ""errcode"": 0,
-        ""errmsg"": ""ok"",
-        ""access_token"": ""abc"",
-        ""expires_in"": 7200
-    }");
+        var httpClient = TestCommon.TestCommon.MockQyapiToken();
 
         var options = new DbContextOptionsBuilder<WecomCorpContext>().UseInMemoryDatabase(databaseName: "WecomCorps")
             .Options;
 
         var context = new WecomCorpContext(options);
 
-        context.WecomCorps.Add(_mockCorp);
+        context.WecomCorps.Add(mockCorp);
         context.SaveChanges();
 
-        _wecom = new Wecom(context, new HttpClient(_msgHandler));
+        _wecom = new Wecom(context, httpClient);
     }
 
     [Then(@"the current token is ""(.*)""")]
