@@ -1,10 +1,5 @@
-using System.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.Extensions.DependencyInjection;
-using Store;
-using Web.Models;
 
 namespace ApiTest
 {
@@ -28,14 +23,7 @@ namespace ApiTest
             {
             });
 
-            var scope = application.Services.CreateScope();
-            var wecomContext = scope.ServiceProvider.GetService<WecomCorpContext>();
-            var fakeCorp = Corporation.GetFakeCorp();
-
-            Debug.Assert(wecomContext != null, nameof(wecomContext) + " != null");
-
-            wecomContext.WecomCorps.Add(fakeCorp);
-            wecomContext.SaveChanges();
+            TestCommon.TestCommon.InjectMockCorpTo(application);
 
             client = application.CreateClient();
         }

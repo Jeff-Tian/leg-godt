@@ -1,4 +1,8 @@
-﻿using RichardSzalay.MockHttp;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using RichardSzalay.MockHttp;
+using Store;
 using Web.Models;
 
 namespace TestCommon;
@@ -21,5 +25,17 @@ public class TestCommon
     }");
 
         return new HttpClient(msgHandler);
+    }
+
+    public static void InjectMockCorpTo(WebApplicationFactory<Program> application)
+    {
+        var scope = application.Services.CreateScope();
+        var wecomContext = scope.ServiceProvider.GetService<WecomCorpContext>();
+        var fakeCorp = Corporation.GetFakeCorp();
+
+        Debug.Assert(wecomContext != null, nameof(wecomContext) + " != null");
+
+        wecomContext.WecomCorps.Add(fakeCorp);
+        wecomContext.SaveChanges();
     }
 }
