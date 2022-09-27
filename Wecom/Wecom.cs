@@ -12,7 +12,7 @@ public class Wecom
     public Wecom(WecomCorpContext context, HttpClient? client)
     {
         _context = context;
-        _client = client ?? new HttpClient();
+        _client = client ??  new HttpClient();
     }
 
     public async Task<AccessToken> GetAccessToken(string enterprise)
