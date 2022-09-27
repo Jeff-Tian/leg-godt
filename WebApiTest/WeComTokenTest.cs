@@ -1,36 +1,26 @@
-using System.Diagnostics;
 using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using Store;
-using Web.Models;
 
 namespace WebApiTest
 {
-    public class UnitTest1
+    public class TokenTest
     {
         [Fact]
-        public async Task Test1()
+        public async Task TestGetTokenOk()
         {
             Environment.SetEnvironmentVariable("ENV", "test");
             var application = new WebApplicationFactory<Program>()
                 .WithWebHostBuilder(builder =>
                 {
-                    // ... Configure test services
+                    builder.ConfigureTestServices(services =>
+                        services.AddSingleton(TestCommon.TestCommon.MockQyapiToken()));
                 });
 
-            var client = application.CreateClient();
-            
-            var scope = application.Services.CreateScope();
-            var wecomContext = scope.ServiceProvider.GetService<WecomCorpContext>();
-            var fakeCorp = Corporation.GetFakeCorp();
+            TestCommon.TestCommon.InjectMockCorpTo(application);
 
-            Debug.Assert(wecomContext != null, nameof(wecomContext) + " != null");
-
-            wecomContext.WecomCorps.Add(fakeCorp);
-            wecomContext.SaveChanges();
-            
-            
+            var client = application.CreateClient();            
             var res = await client.GetAsync("/api/wecom/Token/hardway");
             Assert.Equal(HttpStatusCode.OK, res.StatusCode);
         }

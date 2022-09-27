@@ -9,16 +9,18 @@ namespace Web.Controllers.Wecom;
 public class TokenController : ControllerBase
 {
     private readonly WecomCorpContext _context;
+    private readonly HttpClient _client;
 
-    public TokenController(WecomCorpContext context)
+    public TokenController(WecomCorpContext context, HttpClient client)
     {
         _context = context;
+        _client = client;
     }
 
     [HttpGet("{wecomEnterpriseName}")]
     public async Task<AccessToken> GetToken(string wecomEnterpriseName)
     {
-        var wecom = new UniHeart.Wecom.Wecom(_context, null);
+        var wecom = new UniHeart.Wecom.Wecom(_context, _client);
         return await wecom.GetAccessToken(wecomEnterpriseName);
     }
 }
