@@ -1,6 +1,8 @@
-﻿using System.Text.Json;
+﻿using System.Net.Http.Json;
+using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using Store;
+using UniHeart.Wecom.RequestModels;
 
 namespace UniHeart.Wecom;
 
@@ -12,7 +14,7 @@ public class Wecom
     public Wecom(WecomCorpContext context, HttpClient? client)
     {
         _context = context;
-        _client = client ??  new HttpClient();
+        _client = client ?? new HttpClient();
     }
 
     public async Task<AccessToken> GetAccessToken(string enterprise)
@@ -34,5 +36,20 @@ public class Wecom
         }
 
         return result;
+    }
+
+    public async Task<HttpResponseMessage> GetBillList(string wecomEnterpriseName)
+    {
+        var accessToken = await this.GetAccessToken(wecomEnterpriseName);
+        
+        var streamTask =
+            _client.PostAsJsonAsync(
+                $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken}", new BillQuery()
+                {
+                    begin_time = 978278400,
+                    end_time = 4133952000
+                });
+
+        return await streamTask;
     }
 }
