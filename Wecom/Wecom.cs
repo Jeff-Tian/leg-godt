@@ -44,7 +44,7 @@ public class Wecom
 
         var streamTask =
             (await _client.PostAsJsonAsync(
-                $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken}",
+                $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken.access_token}",
                 new BillQuery()
                 {
                     begin_time = 978278400,
