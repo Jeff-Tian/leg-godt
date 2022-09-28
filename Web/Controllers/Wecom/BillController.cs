@@ -18,7 +18,7 @@ public class BillController : ControllerBase
     }
 
     [HttpGet("{wecomEnterpriseName}")]
-    public async Task<HttpResponseMessage> GetBillList(string wecomEnterpriseName)
+    public async Task<BillListResult?> GetBillList(string wecomEnterpriseName)
     {
         var wecom = new UniHeart.Wecom.Wecom(_context, _client);
         return await wecom.GetBillList(wecomEnterpriseName);

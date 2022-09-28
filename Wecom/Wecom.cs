@@ -38,18 +38,19 @@ public class Wecom
         return result;
     }
 
-    public async Task<HttpResponseMessage> GetBillList(string wecomEnterpriseName)
+    public async Task<BillListResult?> GetBillList(string wecomEnterpriseName)
     {
-        var accessToken = await this.GetAccessToken(wecomEnterpriseName);
-        
+        var accessToken = await GetAccessToken(wecomEnterpriseName);
+
         var streamTask =
-            _client.PostAsJsonAsync(
-                $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken}", new BillQuery()
+            (await _client.PostAsJsonAsync(
+                $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken}",
+                new BillQuery()
                 {
                     begin_time = 978278400,
                     end_time = 4133952000
-                });
+                })).Content.ReadAsStreamAsync();
 
-        return await streamTask;
+        return JsonSerializer.Deserialize<BillListResult>(await streamTask);
     }
 }
