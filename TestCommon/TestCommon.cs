@@ -24,7 +24,7 @@ public class TestCommon
         ""expires_in"": 7200
     }");
         
-        msgHandler.When(HttpMethod.Post, $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token=UniHeart.Wecom.AccessToken").Respond("application/json", @"{
+        msgHandler.When(HttpMethod.Post, $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token=abc").Respond("application/json", @"{
 	""errcode"":0,
         ""errmsg"":""ok"",
         ""next_cursor"":""CURSOR"",
