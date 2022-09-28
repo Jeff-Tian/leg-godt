@@ -24,7 +24,7 @@ else
 }
 
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" }); });
-
+builder.Services.AddSingleton<HttpClient>(new HttpClient());
 var app = builder.Build();
 
 app.Logger.LogInformation("The leg-godt app started");
