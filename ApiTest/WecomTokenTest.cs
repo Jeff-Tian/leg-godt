@@ -2,8 +2,6 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using RichardSzalay.MockHttp;
-using Web.Models;
 
 namespace ApiTest
 {
