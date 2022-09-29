@@ -47,8 +47,8 @@ public class Wecom
                 $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken.access_token}",
                 new BillQuery()
                 {
-                    begin_time = 978278400,
-                    end_time = 4133952000
+                    begin_time = 0,
+                    end_time = 0
                 })).Content.ReadAsStreamAsync();
 
         return JsonSerializer.Deserialize<BillListResult>(await streamTask);
