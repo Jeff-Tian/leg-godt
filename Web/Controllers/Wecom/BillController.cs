@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Store;
 using UniHeart.Wecom;
 
 namespace Web.Controllers.Wecom;
@@ -8,26 +7,22 @@ namespace Web.Controllers.Wecom;
 [ApiController]
 public class BillController : ControllerBase
 {
-    private readonly HttpClient _client;
-    private readonly WecomCorpContext _context;
+    private readonly UniHeart.Wecom.Wecom _wecom;
 
-    public BillController(HttpClient client, WecomCorpContext context)
+    public BillController(UniHeart.Wecom.Wecom wecom)
     {
-        _client = client;
-        _context = context;
+        _wecom = wecom;
     }
 
     [HttpGet("{wecomEnterpriseName}")]
     public async Task<BillListResult?> GetBillList(string wecomEnterpriseName)
     {
-        var wecom = new UniHeart.Wecom.Wecom(_context, _client);
-        return await wecom.GetBillList(wecomEnterpriseName);
+        return await _wecom.GetBillList(wecomEnterpriseName);
     }
 
     [HttpGet("{wecomEnterpriseName}/{orderCreatedAt:int}")]
     public async Task<IEnumerable<Bill>> GetPaymentsInfo(string wecomEnterpriseName, int orderCreatedAt, int cents)
     {
-        var wecom = new UniHeart.Wecom.Wecom(_context, _client);
-        return await wecom.GetPaymentBill(wecomEnterpriseName, orderCreatedAt, cents);
+        return await _wecom.GetPaymentBill(wecomEnterpriseName, orderCreatedAt, cents);
     }
 }
