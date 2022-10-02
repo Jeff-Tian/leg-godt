@@ -38,19 +38,33 @@ public class Wecom
         return result;
     }
 
-    public async Task<BillListResult?> GetBillList(string wecomEnterpriseName)
+    public async Task<BillListResult?> GetBillList(string wecomEnterpriseName, int beginTime = 0, int endTime = 0)
     {
         var accessToken = await GetAccessToken(wecomEnterpriseName);
 
         var streamTask =
             (await _client.PostAsJsonAsync(
                 $"https://qyapi.weixin.qq.com/cgi-bin/externalpay/get_bill_list?access_token={accessToken.access_token}",
-                new BillQuery()
+                new BillQuery
                 {
-                    begin_time = 0,
-                    end_time = 0
+                    begin_time = beginTime,
+                    end_time = endTime
                 })).Content.ReadAsStreamAsync();
 
         return JsonSerializer.Deserialize<BillListResult>(await streamTask);
+    }
+
+    /**
+     * 查询支付信息
+     *
+     * 根据订单的创建时间，查找 10 分钟内指定金额的支付信息。
+     */
+    public async Task<IEnumerable<Bill>> GetPaymentBill(string wecomEnterpriseName, int orderCreatedAt, int cents)
+    {
+        var endTime = orderCreatedAt + 10 * 60;
+
+        var res = await this.GetBillList(wecomEnterpriseName, orderCreatedAt, endTime);
+
+        return res is null ? Array.Empty<Bill>() : res.bill_list.Where(x => x.total_fee.Equals(cents));
     }
 }
