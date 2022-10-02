@@ -23,4 +23,11 @@ public class BillController : ControllerBase
         var wecom = new UniHeart.Wecom.Wecom(_context, _client);
         return await wecom.GetBillList(wecomEnterpriseName);
     }
+
+    [HttpGet("{wecomEnterpriseName}/{orderCreatedAt:int}")]
+    public async Task<IEnumerable<Bill>> GetPaymentsInfo(string wecomEnterpriseName, int orderCreatedAt, int cents)
+    {
+        var wecom = new UniHeart.Wecom.Wecom(_context, _client);
+        return await wecom.GetPaymentBill(wecomEnterpriseName, orderCreatedAt, cents);
+    }
 }
