@@ -15,6 +15,16 @@ builder.Services.AddDbContext<TodoContext>(opt =>
 if (builder.Configuration["ENV"] is "test")
 {
     builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
+    
+    var context = builder?.Services.BuildServiceProvider().GetRequiredService<WecomCorpContext>();
+    context?.WecomCorps.Add(new Corporation()
+    {
+        CorpId = Environment.GetEnvironmentVariable("HARDMONEY_CORP_ID") ?? string.Empty,
+        CorpSecret = Environment.GetEnvironmentVariable("HARDMONEY_CORP_SECRET") ?? string.Empty,
+        Name = "hardmoney"
+    });
+    
+    context?.SaveChanges();
 }
 else
 {
