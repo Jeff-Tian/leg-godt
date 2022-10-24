@@ -1,4 +1,14 @@
-# .NET 6 Hello World
+# leg-godt
+
+---
+
+> A playground for my .dotnet core application.
+
+## Dependencies
+
+### Database
+
+- [PostgreSQL on bit.io](https://bit.io/Jeff-Tian/leg-godt)
 
 This sample demonstrates a tiny Hello World .NET Core app for [App Service Web App](https://docs.microsoft.com/azure/app-service-web). This sample can be used in a .NET Azure App Service app as well as in a Custom Container Azure App Service app.
 
