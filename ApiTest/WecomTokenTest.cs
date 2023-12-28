@@ -8,6 +8,8 @@ namespace ApiTest
     [TestClass]
     public class WecomTokenTest
     {
+        HttpClient client;
+
         [TestMethod]
         public async Task TestGetTokenOk()
         {
@@ -17,7 +19,6 @@ namespace ApiTest
             Assert.AreEqual("{\"errcode\":0,\"errmsg\":\"ok\",\"access_token\":\"abc\",\"expires_in\":7200}", body);
         }
 
-        HttpClient client;
 
         [TestInitialize]
         public void Setup()
