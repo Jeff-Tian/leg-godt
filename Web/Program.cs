@@ -1,4 +1,6 @@
+using Amazon.SimpleEmail;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Store;
 using UniHeart.Wecom;
 using Web;
@@ -38,8 +40,10 @@ else
     });
 }
 
-builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new() { Title = "LegGodtApi", Version = "v1" }); });
+builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo
+    { Title = "LegGodtApi", Version = "v1" }); });
 builder.Services.AddSingleton(new HttpClient());
+builder.Services.AddSingleton<IAmazonSimpleEmailService, AmazonSimpleEmailServiceClient>();
 builder.Services.AddScoped<Wecom, Wecom>();
 var app = builder.Build();
 
