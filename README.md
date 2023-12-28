@@ -4,6 +4,10 @@
 
 > A playground for my .dotnet core application.
 
+## Log stream
+
+https://portal.azure.com/#@JeffTianoutlook758.onmicrosoft.com/resource/subscriptions/90ae756c-a3a1-41a8-bcdf-e72efdadefd6/resourceGroups/leg-godt_group/providers/Microsoft.Web/sites/leg-godt/logStream
+
 ## Dependencies
 
 ### Database
