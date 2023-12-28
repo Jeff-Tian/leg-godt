@@ -22,26 +22,16 @@ public class MailHandler : IRequestHandler<MailCommand, OneOf<Success, Error>>
     {
         _logger.LogInformation("Sending email to {To}", request.To);
 
-        try
+        var sendRequest = new SendEmailRequest
         {
-            var sendRequest = new SendEmailRequest
-            {
+            Source = "Jeff Tian <jeff.tian@outlook.com>", Destination = new Destination(), Message = new Message()
+        };
+        sendRequest.Destination.ToAddresses.Add(request.To);
+        sendRequest.Message.Subject = new Content(request.Subject);
+        sendRequest.Message.Body = new Body(new Content(request.Body));
+        await _emailClient.SendEmailAsync(sendRequest, cancellationToken);
 
-                Source = "Jeff Tian <jeff.tian@outlook.com>",
-                Destination = new Destination(),
-                Message = new Message()
-            };
-            sendRequest.Destination.ToAddresses.Add(request.To);
-            sendRequest.Message.Subject = new Content(request.Subject);
-            sendRequest.Message.Body = new Body(new Content(request.Body));
-            await _emailClient.SendEmailAsync(sendRequest, cancellationToken);
-
-            _logger.LogInformation("Email sent to {To}", request.To);
-            return new Success();
-        } catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error sending email to {To}", request.To);
-            return new Error();
-        }
+        _logger.LogInformation("Email sent to {To}", request.To);
+        return new Success();
     }
 }
