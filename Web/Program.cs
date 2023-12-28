@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Store;
 using UniHeart.Wecom;
 using Web;
+using Web.Features.Infrastructure;
 using Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<TodoContext>(opt =>
     opt.UseInMemoryDatabase("TodoList"));
+
+builder.Services.AddConfiguredRequestHandlers();
+
 if (builder.Configuration["ENV"] is "test")
 {
     builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));

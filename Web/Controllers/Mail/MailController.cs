@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Web.Features.Mail;
 
 namespace Web.Controllers.Mail;
 
@@ -7,8 +8,9 @@ namespace Web.Controllers.Mail;
 public class MailController : ControllerBase
 {
     [HttpPost("SendEmail")]
-    public async Task<string> SendEmail()
+    public async Task<string> SendEmail([FromServices] MailHandler handler, [FromBody] MailCommand command, CancellationToken cancellationToken)
     {
-        return "Hello";
+        var result = await handler.Handle(command, cancellationToken);
+        return result.Match(success => "Success", error => "Error");
     }
 }

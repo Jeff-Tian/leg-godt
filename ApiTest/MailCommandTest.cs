@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 namespace ApiTest;
 
 [TestClass]
-public class MailTest
+public class MailCommandTest
 {
     HttpClient client;
 
@@ -24,5 +24,7 @@ public class MailTest
     {
         var response = await client.PostAsync("/api/Mail/SendEmail", null);
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        var body = await response.Content.ReadAsStringAsync();
+        Assert.AreEqual("Success", body);
     }
 }
