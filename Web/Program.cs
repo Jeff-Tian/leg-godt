@@ -1,3 +1,5 @@
+using Amazon;
+using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -43,7 +45,7 @@ else
 builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo
     { Title = "LegGodtApi", Version = "v1" }); });
 builder.Services.AddSingleton(new HttpClient());
-builder.Services.AddSingleton<IAmazonSimpleEmailService, AmazonSimpleEmailServiceClient>();
+builder.Services.AddSingleton<IAmazonSimpleEmailService>(new AmazonSimpleEmailServiceClient(new EnvironmentVariablesAWSCredentials(), RegionEndpoint.USEast1));
 builder.Services.AddScoped<Wecom, Wecom>();
 var app = builder.Build();
 
