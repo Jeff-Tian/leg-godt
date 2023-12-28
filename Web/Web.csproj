@@ -27,4 +27,8 @@
     <ProjectReference Include="..\Wecom\Wecom.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Webhook\Yuque\" />
+  </ItemGroup>
+
 </Project>
