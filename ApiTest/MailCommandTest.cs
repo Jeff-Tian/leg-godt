@@ -6,7 +6,7 @@ namespace ApiTest;
 [TestClass]
 public class MailCommandTest
 {
-    HttpClient client;
+    HttpClient? client;
 
     [TestInitialize]
     public void Setup()
@@ -22,7 +22,7 @@ public class MailCommandTest
     [TestMethod]
     public async Task TestSendEmailOk()
     {
-        var response = await client.PostAsync("/api/Mail/SendEmail", null);
+        var response = await client?.PostAsync("/api/Mail/SendEmail", null)!;
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var body = await response.Content.ReadAsStringAsync();
         Assert.AreEqual("Success", body);

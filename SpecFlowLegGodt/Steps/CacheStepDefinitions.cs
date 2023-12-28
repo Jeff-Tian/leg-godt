@@ -5,9 +5,9 @@ namespace SpecFlowLegGodt.Steps;
 [Binding]
 public class CacheStepDefinitions
 {
-    private string _key;
-    private string _value;
-    private bool _res;
+    private string? _key;
+    private string? _value;
+    private bool? _res;
     
     [Given(@"the value is '(.*)'")]
     public void GivenTheValueIs(string value)

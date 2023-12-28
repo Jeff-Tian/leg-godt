@@ -8,12 +8,12 @@ namespace ApiTest
     [TestClass]
     public class WecomTokenTest
     {
-        HttpClient client;
+        HttpClient? client;
 
         [TestMethod]
         public async Task TestGetTokenOk()
         {
-            var res = await client.GetAsync("/api/wecom/token/hardway");
+            var res = await client?.GetAsync("/api/wecom/token/hardway")!;
             Assert.AreEqual(HttpStatusCode.OK, res.StatusCode);
             var body = await res.Content.ReadAsStringAsync();
             Assert.AreEqual("{\"errcode\":0,\"errmsg\":\"ok\",\"access_token\":\"abc\",\"expires_in\":7200}", body);

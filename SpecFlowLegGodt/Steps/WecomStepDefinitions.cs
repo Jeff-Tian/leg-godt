@@ -4,13 +4,13 @@ using UniHeart.Wecom;
 using Web.Models;
 using Xunit;
 
-namespace SpecFlowLegGodt;
+namespace SpecFlowLegGodt.Steps;
 
 [Binding]
 public class WecomStepDefinitions
 {
-    private string _enterprise;
-    private Wecom _wecom;
+    private string? _enterprise;
+    private Wecom? _wecom;
 
     [Given(@"the enterprise is ""(.*)""")]
     public void GivenTheEnterpriseIs(string hardway)
@@ -36,7 +36,7 @@ public class WecomStepDefinitions
     [Then(@"the current token is ""(.*)""")]
     public async void ThenTheCurrentTokenIs(string abc)
     {
-        var actualToken = await _wecom.GetAccessToken(_enterprise);
+        var actualToken = await _wecom?.GetAccessToken(_enterprise);
         Assert.Equal(new AccessToken() { access_token = "abc", errcode = 0, errmsg = "ok", expires_in = 7200 }.access_token,
             actualToken.access_token);
     }
