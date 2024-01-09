@@ -35,6 +35,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "Store\Store.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCommon", "TestCommon\TestCommon.csproj", "{73FAF322-3617-485C-A055-A4B7ECC61CEA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambdas", "Lambdas", "{C770DFF2-DC6B-4A59-83C9-526AA426707E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationLambda", "NotificationLambda\NotificationLambda.csproj", "{391D191D-35CB-420D-9541-730846DAFA54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,11 +81,18 @@ Global
 		{73FAF322-3617-485C-A055-A4B7ECC61CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73FAF322-3617-485C-A055-A4B7ECC61CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73FAF322-3617-485C-A055-A4B7ECC61CEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{391D191D-35CB-420D-9541-730846DAFA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{391D191D-35CB-420D-9541-730846DAFA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{391D191D-35CB-420D-9541-730846DAFA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{391D191D-35CB-420D-9541-730846DAFA54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B15BAAEE-4DD9-4982-95A7-34D4C4532B7D}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{391D191D-35CB-420D-9541-730846DAFA54} = {C770DFF2-DC6B-4A59-83C9-526AA426707E}
 	EndGlobalSection
 EndGlobal
