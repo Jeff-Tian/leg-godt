@@ -20,7 +20,7 @@ public class MailHandler : IRequestHandler<MailCommand, OneOf<Success, Error>>
 
     public async Task<OneOf<Success, Error>> Handle(MailCommand request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Sending email to {To}", request.To);
+        _logger.LogInformation("Sending email to {To} with {Body}", request.To, request.Body);
 
         try
         {
