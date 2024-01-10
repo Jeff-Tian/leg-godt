@@ -30,7 +30,7 @@ public class MailHandler : IRequestHandler<MailCommand, OneOf<Success, Error>>
             };
             sendRequest.Destination.ToAddresses.Add(request.To);
             sendRequest.Message.Subject = new Content(request.Subject);
-            sendRequest.Message.Body = new Body(new Content(request.Body));
+            sendRequest.Message.Body = new Body(new Content(request.Body ?? request.Subject));
             await _emailClient.SendEmailAsync(sendRequest, cancellationToken);
 
             _logger.LogInformation("Email sent to {To}", request.To);
