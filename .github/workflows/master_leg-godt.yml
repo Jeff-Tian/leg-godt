@@ -40,17 +40,37 @@ jobs:
           
           ls .
 
-      - name: Upload livingdoc for gh-pages
-        uses: actions/upload-artifact@v2
-        with: 
-          name: livingdoc
-          path: .
-
   livingdoc:
-    needs: test
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
     steps:
-      - name: Upload livingdoc to gh-pages
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Test with dotnet
+        env:
+          REDIS_HOST: localhost
+          REDIS_PASSWORD: ""
+        run: |
+          dotnet test
+          
+          dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
+          
+          livingdoc test-assembly SpecFlowLegGodt/bin/Debug/net6.0/SpecFlowLegGodt.dll -t SpecFlowLegGodt/bin/Debug/net6.0/TestExecution.json
+          
+          ls .
+
+      - name: Upload livingdoc for gh-pages
         uses: actions/upload-artifact@v2
         with:
           name: livingdoc
@@ -83,7 +103,7 @@ jobs:
 
   gh-pages:
     runs-on: windows-latest
-    needs: test
+    needs: livingdoc
 
     steps:
       - name: Download artifact from build job
