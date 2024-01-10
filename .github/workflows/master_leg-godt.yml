@@ -46,6 +46,15 @@ jobs:
           name: livingdoc
           path: .
 
+  livingdoc:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload livingdoc to gh-pages
+        uses: actions/upload-artifact@v2
+        with:
+          name: livingdoc
+          path: .
 
   build:
     runs-on: windows-latest

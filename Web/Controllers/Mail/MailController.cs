@@ -7,9 +7,9 @@ namespace Web.Controllers.Mail;
 [ApiController]
 public class MailController : ControllerBase
 {
-    private readonly ILogger<MailHandler> _logger;
+    private readonly ILogger<MailController> _logger;
 
-    public MailController(ILogger<MailHandler> logger)
+    public MailController(ILogger<MailController> logger)
     {
         _logger = logger;
     }
