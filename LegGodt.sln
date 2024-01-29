@@ -23,6 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "解决方案项", "解决�
 		.github\workflows\master_leg-godt.yml = .github\workflows\master_leg-godt.yml
 		.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
 		.github\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE.md
+		README_zh-CN.md = README_zh-CN.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiTest", "WebApiTest\WebApiTest.csproj", "{15707AD1-16B6-480D-A73E-23E98255E6F6}"
