@@ -176,13 +176,9 @@ jobs:
             # 假设你已经有一个文件夹用来存放应用程序
             cd /root/apps/leg-godt
             
-            # 停止现有服务，这取决于你如何运行你的应用程序
-            # 如果你的服务是通过 systemd 管理的，你可以使用 systemctl 命令
-            systemctl stop leg-godt
-            
             # 这里我们假设 .net-app 是上传的构建工件的名称
             # 解压缩上传的工件
             unzip .net-app
             
             # 重新启动服务
-            systemctl start leg-godt
+            pm2 restart leg-godt || pm2 start "dotnet Web.dll --urls \"http://*:3002;https://*:3003\"" --name leg-godt
