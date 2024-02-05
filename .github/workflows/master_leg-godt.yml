@@ -86,7 +86,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
           include-prerelease: true
 
       - name: Build with dotnet
@@ -145,16 +145,6 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D2B5A522F861461E951E2F595AEB159D }}
           package: .
-
-      - name: Deploy to Aliyun ECS
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          port: ${{ secrets.PORT }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "publish/*"
-          target: "/path/to/server/directory"
 
   deploy-to-ssh-server:
     runs-on: ubuntu-latest

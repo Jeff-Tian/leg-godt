@@ -4,6 +4,12 @@
 
 > A playground for my .dotnet core application.
 
+## Local run
+
+```bash
+AWS_ACCESS_KEY_ID=x AWS_SECRET_ACCESS_KEY=y dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"
+```
+
 ## Log stream
 
 https://portal.azure.com/#@JeffTianoutlook758.onmicrosoft.com/resource/subscriptions/90ae756c-a3a1-41a8-bcdf-e72efdadefd6/resourceGroups/leg-godt_group/providers/Microsoft.Web/sites/leg-godt/logStream
