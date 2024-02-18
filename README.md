@@ -54,6 +54,18 @@ docker tag dotnetcore-docs-hello-world-windows <your_registry_name>.azurecr.io/d
 docker push <your_registry_name>.azurecr.io/dotnetcore-docs-hello-world-linux:latest
 ```
 
+# Test
+
+## Dockerfile
+
+I made a Dockerfile for easy testing, especially for BDD testing. The image was uploaded to Docker hub, to update the image, run the following command:
+
+```bash
+docker build -t jefftian/dotnet-chrome:latest .
+docker login -u jefftian -p <password>
+docker push jefftian/dotnet-chrome:latest
+```
+
 # Contributing
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
