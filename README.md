@@ -4,7 +4,21 @@
 
 > A playground for my .dotnet core application.
 
+## Local test
+
+```bash
+dotnet test --logger:"console;verbosity=normal"
+```
+
 ## Local run
+
+If you want to send log to a remote server, you can use the following command:
+
+```bash
+AWS_ACCESS_KEY_ID=x AWS_SECRET_ACCESS_KEY=y Serilog__WriteTo__0__Args__uri=tls://your-uri-here dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"
+```
+
+Otherwise you can just run the following only write log to console:
 
 ```bash
 AWS_ACCESS_KEY_ID=x AWS_SECRET_ACCESS_KEY=y dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"

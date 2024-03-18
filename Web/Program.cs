@@ -3,6 +3,7 @@ using Amazon.Runtime;
 using Amazon.SimpleEmail;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 using Store;
 using UniHeart.Wecom;
 using Web;
@@ -10,6 +11,14 @@ using Web.Features.Infrastructure;
 using Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+{
+    loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration).Enrich.FromLogContext().WriteTo
+        .Console();
+});
+
 builder.Logging.AddJsonConsole();
 
 // Add services to the container.
@@ -20,10 +29,10 @@ builder.Services.AddDbContext<TodoContext>(opt =>
 
 builder.Services.AddConfiguredRequestHandlers();
 
-if (builder.Configuration["ENV"] is "test")
+if (builder.Configuration["ENV"] is "Test")
 {
     builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
-    
+
     var context = builder?.Services.BuildServiceProvider().GetRequiredService<WecomCorpContext>();
     context?.WecomCorps.Add(new Corporation()
     {
@@ -31,7 +40,7 @@ if (builder.Configuration["ENV"] is "test")
         CorpSecret = Environment.GetEnvironmentVariable("HARDMONEY_CORP_SECRET") ?? string.Empty,
         Name = "hardmoney"
     });
-    
+
     context?.SaveChanges();
 }
 else
@@ -42,10 +51,14 @@ else
     });
 }
 
-builder.Services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo
-    { Title = "LegGodtApi", Version = "v1" }); });
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+        { Title = "LegGodtApi", Version = "v1" });
+});
 builder.Services.AddSingleton(new HttpClient());
-builder.Services.AddSingleton<IAmazonSimpleEmailService>(new AmazonSimpleEmailServiceClient(new EnvironmentVariablesAWSCredentials(), RegionEndpoint.USEast1));
+builder.Services.AddSingleton<IAmazonSimpleEmailService>(
+    new AmazonSimpleEmailServiceClient(new EnvironmentVariablesAWSCredentials(), RegionEndpoint.USEast1));
 builder.Services.AddScoped<Wecom, Wecom>();
 var app = builder.Build();
 
@@ -75,7 +88,7 @@ app.MapRazorPages();
 
 app.Run();
 
-if (builder.Configuration["ENV"] is not "test")
+if (builder.Configuration["ENV"] is not "Test")
 {
     app.EnsureMigrationOfContext<WecomCorpContext>();
 }
