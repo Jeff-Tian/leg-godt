@@ -7,7 +7,7 @@
 ## Local run
 
 ```bash
-AWS_ACCESS_KEY_ID=x AWS_SECRET_ACCESS_KEY=y dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"
+AWS_ACCESS_KEY_ID=x AWS_SECRET_ACCESS_KEY=y Serilog__WriteTo__0__Args__uri=tls://your-uri-here dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"
 ```
 
 ## Log stream
