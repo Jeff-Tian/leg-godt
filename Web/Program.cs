@@ -15,8 +15,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure Serilog
 builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
 {
-    loggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration).Enrich.FromLogContext().WriteTo
-        .Console();
+    loggerConfiguration
+        .ReadFrom.Configuration(hostingContext.Configuration)
+        .Enrich.FromLogContext();
 });
 
 builder.Logging.AddJsonConsole();
@@ -29,7 +30,7 @@ builder.Services.AddDbContext<TodoContext>(opt =>
 
 builder.Services.AddConfiguredRequestHandlers();
 
-if (builder.Configuration["ENV"] is "Test")
+if (builder.Configuration["ASPNETCORE_ENVIRONMENT"] is "Test")
 {
     builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
 

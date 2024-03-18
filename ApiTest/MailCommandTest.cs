@@ -18,7 +18,7 @@ public class MailCommandTest
     [TestInitialize]
     public void Setup()
     {
-        Environment.SetEnvironmentVariable("ENV", "Test");
+        Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
         Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "fake");
         Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "fake");
         var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
