@@ -6,7 +6,7 @@ public static class Cache
 {
     public static bool Set(string key, string value)
     {
-        CacheInstance instance = Environment.GetEnvironmentVariable("ENV") is "test"
+        CacheInstance instance = Environment.GetEnvironmentVariable("ENV") is "Test"
             ? new InMemoryCache()
             : new RedisCache();
         

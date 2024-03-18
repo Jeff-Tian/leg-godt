@@ -23,7 +23,7 @@ namespace ApiTest
         [TestInitialize]
         public void Setup()
         {
-            Environment.SetEnvironmentVariable("ENV", "test");
+            Environment.SetEnvironmentVariable("ENV", "Test");
             Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "fake");
             Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "fake");
             var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>

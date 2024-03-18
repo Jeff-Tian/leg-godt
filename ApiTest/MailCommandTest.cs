@@ -18,11 +18,16 @@ public class MailCommandTest
     [TestInitialize]
     public void Setup()
     {
-        Environment.SetEnvironmentVariable("ENV", "test");
+        Environment.SetEnvironmentVariable("ENV", "Test");
         Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "fake");
         Environment.SetEnvironmentVariable("AWS_SECRET_ACCESS_KEY", "fake");
         var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
+            builder.ConfigureAppConfiguration((context, conf) =>
+            {
+                context.HostingEnvironment.EnvironmentName = "Test";
+            });
+
             builder.ConfigureTestServices(services =>
             {
                 services.RemoveAll<IAmazonSimpleEmailService>();

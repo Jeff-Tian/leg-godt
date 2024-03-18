@@ -29,7 +29,7 @@ builder.Services.AddDbContext<TodoContext>(opt =>
 
 builder.Services.AddConfiguredRequestHandlers();
 
-if (builder.Configuration["ENV"] is "test")
+if (builder.Configuration["ENV"] is "Test")
 {
     builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
 
@@ -88,7 +88,7 @@ app.MapRazorPages();
 
 app.Run();
 
-if (builder.Configuration["ENV"] is not "test")
+if (builder.Configuration["ENV"] is not "Test")
 {
     app.EnsureMigrationOfContext<WecomCorpContext>();
 }

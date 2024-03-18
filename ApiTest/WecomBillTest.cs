@@ -11,7 +11,7 @@ public class WecomBillTest
     [TestInitialize]
     public void Setup()
     {
-        Environment.SetEnvironmentVariable("ENV", "test");
+        Environment.SetEnvironmentVariable("ENV", "Test");
         var application = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
         {
             builder.ConfigureTestServices(services =>
