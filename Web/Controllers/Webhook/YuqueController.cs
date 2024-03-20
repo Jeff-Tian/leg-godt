@@ -17,11 +17,15 @@ public class YuqueController
     }
 
     [HttpPost("yuque")]
-    public async Task<string> Yuque([FromBody] YuqueArticle body, [FromServices] MailHandler handler, CancellationToken cancellationToken)
+    public async Task<string> Yuque([FromBody] YuqueArticle body, [FromServices] MailHandler handler,
+        CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Received Yuque webhook request to {Path} with {ActionType}: {Title}", body.Data.Path, body.Data.Action_type, body.Data.Title);
+        _logger.LogInformation("Received Yuque webhook request to {Path} with {ActionType}: {Title}", body.Data.Path,
+            body.Data.Action_type, body.Data.Title);
 
-        var mailCommand = new MailCommand("jeff.tian@outlook.com", body.Data.Title, body.Data.Body_html ?? body.Data.Body ?? body.Data.Title);
+        var tos = new string[] { "jeff.tian@outlook.com", "jie.tian@hotmail.com" };
+        var mailCommand = new MailCommand(tos.ToList(), body.Data.Title,
+            body.Data.Body_html ?? body.Data.Body ?? body.Data.Title);
 
         var result = await handler.Handle(mailCommand, cancellationToken);
 

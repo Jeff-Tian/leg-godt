@@ -41,7 +41,7 @@ public class MailCommandTest
     [TestMethod]
     public async Task TestSendEmailOk()
     {
-        var mailCommand = new MailCommand("jeff.tian@outlook.com", "hello", "world!");
+        var mailCommand = new MailCommand(new List<string> { "jeff.tian@outlook.com" }, "hello", "world!");
         var response = await _client?.PostAsync("/api/Mail/SendEmail", JsonContent.Create(mailCommand))!;
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         var body = await response.Content.ReadAsStringAsync();

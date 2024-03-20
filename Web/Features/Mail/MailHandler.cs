@@ -20,7 +20,9 @@ public class MailHandler : IRequestHandler<MailCommand, OneOf<Success, Error>>
 
     public async Task<OneOf<Success, Error>> Handle(MailCommand request, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Sending email to {To} with {Subject}: {Body}", request.To, request.Subject, request.Body);
+        _logger.LogInformation("Sending email to {To} with {Subject}: {Body}", string.Join(',', request.Tos),
+            request.Subject,
+            request.Body);
 
         try
         {
@@ -28,16 +30,18 @@ public class MailHandler : IRequestHandler<MailCommand, OneOf<Success, Error>>
             {
                 Source = "Jeff Tian <jeff.tian@outlook.com>", Destination = new Destination(), Message = new Message()
             };
-            sendRequest.Destination.ToAddresses.Add(request.To);
+            request.Tos.ForEach(x => { sendRequest.Destination.ToAddresses.Add(x); });
             sendRequest.Message.Subject = new Content(request.Subject);
             sendRequest.Message.Body = new Body(new Content(request.Body ?? request.Subject));
             await _emailClient.SendEmailAsync(sendRequest, cancellationToken);
 
-            _logger.LogInformation("Email sent to {To}", request.To);
+            _logger.LogInformation("Email sent to {To}", string.Join(',', request.Tos));
             return new Success();
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
-            _logger.LogError("Error sending email to {To}: {Message}\n{Stack}", request.To, ex.Message, ex.StackTrace);
+            _logger.LogError("Error sending email to {To}: {Message}\n{Stack}", string.Join(',', request.Tos),
+                ex.Message, ex.StackTrace);
             return new Error();
         }
     }

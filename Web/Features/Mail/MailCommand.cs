@@ -1,3 +1,3 @@
 namespace Web.Controllers.Mail;
 
-public record MailCommand(string To, string Subject, string Body);
+public record MailCommand(List<string> Tos, string Subject, string Body);
