@@ -87,6 +87,12 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+// Obtain a logger instance
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+// Log a message indicating the start of the application
+logger.LogInformation("The application has started.");
+
 app.Run();
 
 if (builder.Configuration["ENV"] is not "Test")
