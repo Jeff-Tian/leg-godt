@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lambdas", "Lambdas", "{C770
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationLambda", "NotificationLambda\NotificationLambda.csproj", "{391D191D-35CB-420D-9541-730846DAFA54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xunit_v3", "xunit_v3.csproj", "{293FA26E-1FD5-47D5-949B-C3B5CFCD2715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,10 @@ Global
 		{391D191D-35CB-420D-9541-730846DAFA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{391D191D-35CB-420D-9541-730846DAFA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{391D191D-35CB-420D-9541-730846DAFA54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{293FA26E-1FD5-47D5-949B-C3B5CFCD2715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{293FA26E-1FD5-47D5-949B-C3B5CFCD2715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{293FA26E-1FD5-47D5-949B-C3B5CFCD2715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{293FA26E-1FD5-47D5-949B-C3B5CFCD2715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -173,6 +173,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            export PATH=/root/.nvm/versions/node/v21.6.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/root/.dotnet/tools:/usr/local/go/bin
+            source /root/.profile
             # 假设你已经有一个文件夹用来存放应用程序
             cd /root/apps/leg-godt
             
