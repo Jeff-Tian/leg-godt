@@ -32,7 +32,7 @@ public class MailHandler : IRequestHandler<MailCommand, OneOf<Success, Error>>
             };
             request.Tos.ForEach(x => { sendRequest.Destination.ToAddresses.Add(x); });
             sendRequest.Message.Subject = new Content(request.Subject);
-            sendRequest.Message.Body = new Body(new Content(request.Body ?? request.Subject));
+            sendRequest.Message.Body = new Body { Html = new Content { Charset = "UTF-8", Data = request.Body } };
             await _emailClient.SendEmailAsync(sendRequest, cancellationToken);
 
             _logger.LogInformation("Email sent to {To}", string.Join(',', request.Tos));
