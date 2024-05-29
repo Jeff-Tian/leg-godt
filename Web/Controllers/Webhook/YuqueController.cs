@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Web.Controllers.Mail;
 using Web.Controllers.Webhook.Models;
 using Web.Features.Mail;
+using Web.Features.YuQue;
 
 namespace Web.Controllers.Webhook;
 
@@ -30,5 +31,17 @@ public class YuqueController
         var result = await handler.Handle(mailCommand, cancellationToken);
 
         return result.Match(success => mailCommand.Body, error => "Error");
+    }
+
+    [HttpPost("strapi")]
+    public async Task<string> Strapi([FromBody] StrapiEntry body, [FromServices] YuqueHandler handler,
+        CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("Received Strapi webhook request to {Event} with {Model}: {FullName}", body.Event,
+            body.Model, body.Entry.Full_name);
+
+        var result = await handler.Handle(body, cancellationToken);
+
+        return result.Match(success => "Success", error => "Error");
     }
 }
