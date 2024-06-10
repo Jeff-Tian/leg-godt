@@ -1,33 +1,16 @@
 using System.Net;
 using System.Text;
+using System.Text.Json;
 using ApiTest.Fixtures;
 using FluentAssertions;
+using FluentAssertions.Equivalency;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ApiTest;
 
 [TestClass]
 public class WebhookTest : TestBase
 {
-    [TestMethod]
-    public async Task TestWebhook()
-    {
-        var response = await _httpClient!.PostAsync("/api/webhook/yuque",
-            new StringContent("{\"data\":{\"title\":\"test\",\"body_html\":\"test_body_html\",\"format\":\"lake\"}}", Encoding.UTF8,
-                "application/json"));
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-        response.Content.Headers.ContentType?.MediaType.Should().Be("text/plain");
-        var body = await response.Content.ReadAsStringAsync();
-        body.Should().Be("test_body_html");
-    }
-
-    [TestMethod]
-    public async Task TestYuquePublish()
-    {
-        var response = await _httpClient!.PostAsync("/api/webhook/yuque",
-            new StringContent(this._publishedYuqueArticle, Encoding.UTF8, "application/json"));
-        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-    }
-
     private string _publishedYuqueArticle = @"{""data"":{
   ""id"": 157176225,
   ""slug"": ""azl1phhstd3euu1w"",
@@ -108,4 +91,81 @@ public class WebhookTest : TestBase
   ""action_type"": ""publish"",
   ""url"": ""https://www.yuque.com/tian-jie/blog/azl1phhstd3euu1w""
 }}";
+
+    [TestMethod]
+    public async Task TestWebhook()
+    {
+        var response = await _httpClient!.PostAsync("/api/webhook/yuque",
+            new StringContent("{\"data\":{\"title\":\"test\",\"body_html\":\"test_body_html\",\"format\":\"lake\"}}",
+                Encoding.UTF8,
+                "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        response.Content.Headers.ContentType?.MediaType.Should().Be("text/plain");
+        var body = await response.Content.ReadAsStringAsync();
+        body.Should().Be("test_body_html");
+    }
+
+    [TestMethod]
+    public async Task TestYuquePublish()
+    {
+        var response = await _httpClient!.PostAsync("/api/webhook/yuque",
+            new StringContent(this._publishedYuqueArticle, Encoding.UTF8, "application/json"));
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+    }
+
+    [TestMethod]
+    public async Task TestStrapi_BadRequest()
+    {
+        var response = await _httpClient!.PostAsync("/api/webhook/strapi",
+            new StringContent(
+                "{\"event\":\"test\",\"model\":\"test\",\"entry\":{\"full_name\":\"test\",\"created_at\":\"2024-01-29T05:06:35.000Z\"}}",
+                Encoding.UTF8,
+                "application/json"));
+        Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        response.Content.Headers.ContentType?.MediaType.Should().Be("application/problem+json");
+        var body = await response.Content.ReadAsStringAsync();
+
+        var expectedBody = JsonSerializer.Deserialize<ProblemDetails>(
+            "{\n  \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n  \"title\": \"One or more validation errors occurred.\",\n  \"status\": 400,\n  \"traceId\": \"00-5afc111f1c70dc6fc08fda72a04d09db-c837bdc052e4b1f4-00\",\n  \"errors\": {\n    \"CreatedAt\": [\n      \"The CreatedAt field is required.\"\n    ],\n    \"Entry.City\": [\n      \"The City field is required.\"\n    ],\n    \"Entry.CreatedAt\": [\n      \"The CreatedAt field is required.\"\n    ],\n    \"Entry.UpdatedAt\": [\n      \"The UpdatedAt field is required.\"\n    ]\n  }\n}",
+            new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+            });
+
+        var actualBody = JsonSerializer.Deserialize<ProblemDetails>(body, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+        });
+
+        actualBody.Should().BeEquivalentTo(expectedBody, options => options.Excluding(pd => pd.Extensions));
+        actualBody.Extensions.Should().ContainKey("traceId");
+        actualBody.Extensions.Should().ContainKey("errors");
+
+        // 比较 Errors 字段的值
+        var expectedErrorsJson = JsonSerializer.Serialize(expectedBody.Extensions["errors"], new JsonSerializerOptions
+        {
+            WriteIndented = false
+        });
+        var actualErrorsJson = JsonSerializer.Serialize(actualBody.Extensions["errors"], new JsonSerializerOptions
+        {
+            WriteIndented = false
+        });
+
+        actualErrorsJson.Should().Be(expectedErrorsJson);
+    }
+
+    [TestMethod]
+    public async Task TestStrapi()
+    {
+        var response = await _httpClient!.PostAsync("/api/webhook/strapi",
+            new StringContent(
+                "{\"event\":\"test\",\"model\":\"test\",\"entry\":{\"full_name\":\"test\",\"updatedAt\":\"2024-01-29\",\"createdAt\":\"2024-01-29T05:06:35.000Z\",\"city\":\"Shanghai\"},\"createdAt\":\"2024-01-29T05:06:35.000Z\"}",
+                Encoding.UTF8,
+                "application/json"));
+
+        Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        response.Content.Headers.ContentType?.MediaType.Should().Be("text/plain");
+        var body = await response.Content.ReadAsStringAsync();
+        body.Should().Be("Success");
+    }
 }
