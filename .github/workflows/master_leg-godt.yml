@@ -36,7 +36,7 @@ jobs:
           
           dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
           
-          livingdoc test-assembly SpecFlowLegGodt/bin/Debug/net6.0/SpecFlowLegGodt.dll -t SpecFlowLegGodt/bin/Debug/net6.0/TestExecution.json
+          livingdoc test-assembly SpecFlowLegGodt/bin/Debug/net8.0/SpecFlowLegGodt.dll -t SpecFlowLegGodt/bin/Debug/net8.0/TestExecution.json
           
           ls .
 
@@ -66,7 +66,7 @@ jobs:
           
           dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
           
-          livingdoc test-assembly SpecFlowLegGodt/bin/Debug/net6.0/SpecFlowLegGodt.dll -t SpecFlowLegGodt/bin/Debug/net6.0/TestExecution.json
+          livingdoc test-assembly SpecFlowLegGodt/bin/Debug/net8.0/SpecFlowLegGodt.dll -t SpecFlowLegGodt/bin/Debug/net8.0/TestExecution.json
           
           ls .
 
@@ -86,7 +86,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '6.0.x'
+          dotnet-version: '8.0.x'
           include-prerelease: true
 
       - name: Build with dotnet
