@@ -126,7 +126,7 @@ public class WebhookTest : TestBase
         var body = await response.Content.ReadAsStringAsync();
 
         var expectedBody = JsonSerializer.Deserialize<ProblemDetails>(
-            "{\n  \"type\": \"https://tools.ietf.org/html/rfc7231#section-6.5.1\",\n  \"title\": \"One or more validation errors occurred.\",\n  \"status\": 400,\n  \"traceId\": \"00-5afc111f1c70dc6fc08fda72a04d09db-c837bdc052e4b1f4-00\",\n  \"errors\": {\n    \"CreatedAt\": [\n      \"The CreatedAt field is required.\"\n    ],\n    \"Entry.City\": [\n      \"The City field is required.\"\n    ],\n    \"Entry.CreatedAt\": [\n      \"The CreatedAt field is required.\"\n    ],\n    \"Entry.UpdatedAt\": [\n      \"The UpdatedAt field is required.\"\n    ]\n  }\n}",
+            "{\n  \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n  \"title\": \"One or more validation errors occurred.\",\n  \"status\": 400,\n  \"traceId\": \"00-5afc111f1c70dc6fc08fda72a04d09db-c837bdc052e4b1f4-00\",\n  \"errors\": {\n    \"CreatedAt\": [\n      \"The CreatedAt field is required.\"\n    ],\n    \"Entry.City\": [\n      \"The City field is required.\"\n    ],\n    \"Entry.CreatedAt\": [\n      \"The CreatedAt field is required.\"\n    ],\n    \"Entry.UpdatedAt\": [\n      \"The UpdatedAt field is required.\"\n    ]\n  }\n}",
             new JsonSerializerOptions()
             {
                 PropertyNameCaseInsensitive = true,
