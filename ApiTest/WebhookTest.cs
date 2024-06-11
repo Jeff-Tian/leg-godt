@@ -3,7 +3,6 @@ using System.Text;
 using System.Text.Json;
 using ApiTest.Fixtures;
 using FluentAssertions;
-using FluentAssertions.Equivalency;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiTest;

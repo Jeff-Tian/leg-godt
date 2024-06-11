@@ -34,7 +34,9 @@ public class YuqueController
     }
 
     [HttpPost("strapi")]
-    public async Task<string> Strapi([FromBody] StrapiEntry body, [FromServices] YuqueHandler handler,
+    public async Task<string> Strapi(
+        [FromBody] StrapiEntry body, 
+        [FromServices] YuqueHandler handler,
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("Received Strapi webhook request to {Event} with {Model}: {FullName}", body.Event,
