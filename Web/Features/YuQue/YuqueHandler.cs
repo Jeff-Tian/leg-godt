@@ -21,10 +21,12 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
         _logger.LogInformation("Received Strapi webhook request to {Event} with {Model}: {FullName}", body.Event,
             body.Model, body.Entry.Full_name);
 
-        var response = await _client.PostAsJsonAsync("https://api.yuque.com/v2/repos/jeff-tian/notes", new
+        var response = await _client.PostAsJsonAsync("https://api.yuque.com/v2/repos/tian-jie/docs", new Dictionary<string, object>
         {
-            title = body.Entry.Full_name,
-            body = $"Created at {body.Entry.CreatedAt}"
+            {"title", body.Entry.Full_name},
+            {"body", $"Created at {body.Entry.CreatedAt}"},
+            {"format", "markdown"},
+            {"public", 0},
         }, cancellationToken);
 
         if (response.IsSuccessStatusCode)
