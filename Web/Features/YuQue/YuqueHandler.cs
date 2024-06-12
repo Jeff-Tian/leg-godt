@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using System.Net.Http.Headers;
 using OneOf;
 using OneOf.Types;
 using Web.Controllers.Webhook.Models;
@@ -9,11 +11,13 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
 {
     private readonly ILogger<YuqueHandler> _logger;
     private readonly HttpClient _client;
+    private readonly IConfiguration _configuration;
 
-    public YuqueHandler(ILogger<YuqueHandler> logger, HttpClient client)
+    public YuqueHandler(ILogger<YuqueHandler> logger, HttpClient client, IConfiguration configuration)
     {
         _logger = logger;
         _client = client;
+        _configuration = configuration;
     }
 
     public async Task<OneOf<Success, Error>> Handle(StrapiEntry body, CancellationToken cancellationToken)
@@ -21,13 +25,20 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
         _logger.LogInformation("Received Strapi webhook request to {Event} with {Model}: {FullName}", body.Event,
             body.Model, body.Entry.Full_name);
 
-        var response = await _client.PostAsJsonAsync("https://api.yuque.com/v2/repos/tian-jie/docs", new Dictionary<string, object>
+        var yuqueToken = _configuration["YuQue:Token"];
+        Debug.Assert(yuqueToken is not null);
+
+        var request = new HttpRequestMessage(HttpMethod.Post,
+            "https://api.yuque.com/v2/repos/tian-jie/docs");
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", yuqueToken);
+        request.Content = JsonContent.Create(new Dictionary<string, object>
         {
-            {"title", body.Entry.Full_name},
-            {"body", $"Created at {body.Entry.CreatedAt}"},
-            {"format", "markdown"},
-            {"public", 0},
-        }, cancellationToken);
+            { "title", body.Entry.Full_name },
+            { "body", $"Created at {body.Entry.CreatedAt}" },
+            { "format", "markdown" },
+            { "public", 0 },
+        });
+        var response = await _client.SendAsync(request, cancellationToken);
 
         if (response.IsSuccessStatusCode)
         {
