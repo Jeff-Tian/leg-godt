@@ -1,12 +1,26 @@
 ﻿@page
 @model Web.Pages.IndexModel
-@{    
+@{
     ViewData["Title"] = "Home page made by Jeff Tian";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Hello World from .Net 6</h1>
+    <h1 class="display-4">Hello World from .Net</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <hr/>
+    <div>Host operating system: @Model.OsVersion</div>
     <hr />
-    <div>Host operating system: @Model.OSVersion</div>
+    <p>Hosting Environment (ASPNETCORE_ENVIRONMENT): @Model.AspNetCoreEnvironment</p>
+    <environment include="Development">
+        <div>Environment is Development</div>
+    </environment>
+    <environment include="Production">
+        <div>Environment is Production</div>
+    </environment>
+    <environment exclude="Development">
+        <div>Environment is NOT Development</div>
+    </environment>
+    <environment include="Staging,Development,Staging_2">
+        <div>Environment is: Staging, Development or Staging_2</div>
+    </environment>
 </div>
