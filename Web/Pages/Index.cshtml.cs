@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Runtime.InteropServices;
 
 namespace Web.Pages;
@@ -7,13 +6,15 @@ namespace Web.Pages;
 public class IndexModel : PageModel
 {
 
-    public string OSVersion { get { return RuntimeInformation.OSDescription; }  }
-    
+    public string OsVersion => RuntimeInformation.OSDescription;
+    public string? AspNetCoreEnvironment;
+
     private readonly ILogger<IndexModel> _logger;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public IndexModel(ILogger<IndexModel> logger, IConfiguration configuration)
     {
         _logger = logger;
+        AspNetCoreEnvironment = configuration["ASPNETCORE_ENVIRONMENT"];
     }
 
     public void OnGet()
