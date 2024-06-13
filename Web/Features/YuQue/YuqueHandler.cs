@@ -27,16 +27,21 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
 
         var yuqueToken = _configuration["YuQue:Token"];
         Debug.Assert(yuqueToken is not null);
+        var yuqueBookId = _configuration["YuQue:BookId"];
+        Debug.Assert(yuqueBookId is not null);
 
         var request = new HttpRequestMessage(HttpMethod.Post,
-            "https://api.yuque.com/v2/repos/tian-jie/docs");
+            $"https://www.yuque.com/api/v2/repos/{yuqueBookId}/docs");
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", yuqueToken);
+        request.Headers.Add("X-Auth-Token", yuqueToken);
+        request.Headers.UserAgent.ParseAdd("LegGodt/1.0 (+https://leg-godt.azurewebsites.net/)");
         request.Content = JsonContent.Create(new Dictionary<string, object>
         {
             { "title", body.Entry.Full_name },
             { "body", $"Created at {body.Entry.CreatedAt}" },
             { "format", "markdown" },
             { "public", 0 },
+            { "status", 0 },
         });
 
         _logger.LogInformation("Sending Yuque request:\n{CurlCommand}", await request.ToCurlCommand());

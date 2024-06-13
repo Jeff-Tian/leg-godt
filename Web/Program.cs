@@ -10,94 +10,111 @@ using Web;
 using Web.Features.Infrastructure;
 using Web.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
-// Configure Serilog
-builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
+try
 {
-    loggerConfiguration
-        .ReadFrom.Configuration(hostingContext.Configuration)
-        .Enrich.FromLogContext();
-});
+    Log.Information("Starting web application...");
 
-builder.Logging.AddJsonConsole();
+    var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
-builder.Services.AddControllers();
-builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
-
-builder.Services.AddConfiguredRequestHandlers();
-
-if (builder.Configuration["ASPNETCORE_ENVIRONMENT"] is "Test")
-{
-    builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
-
-    var context = builder?.Services.BuildServiceProvider().GetRequiredService<WecomCorpContext>();
-    context?.WecomCorps.Add(new Corporation()
+    // Configure Serilog
+    builder.Host.UseSerilog((hostingContext, loggerConfiguration) =>
     {
-        CorpId = Environment.GetEnvironmentVariable("HARDMONEY_CORP_ID") ?? string.Empty,
-        CorpSecret = Environment.GetEnvironmentVariable("HARDMONEY_CORP_SECRET") ?? string.Empty,
-        Name = "hardmoney"
+        loggerConfiguration
+            .ReadFrom.Configuration(hostingContext.Configuration)
+            .Enrich.FromLogContext();
     });
 
-    context?.SaveChanges();
-}
-else
-{
-    builder.Services.AddDbContext<WecomCorpContext>(options =>
+    builder.Logging.AddJsonConsole();
+
+    // Add services to the container.
+    builder.Services.AddRazorPages();
+    builder.Services.AddControllers();
+    builder.Services.AddDbContext<TodoContext>(opt =>
+        opt.UseInMemoryDatabase("TodoList"));
+
+    builder.Services.AddConfiguredRequestHandlers();
+
+    if (builder.Configuration["ASPNETCORE_ENVIRONMENT"] is "Test")
     {
-        options.UseNpgsql(builder.Configuration["PostgresConnectionString"]);
+        builder.Services.AddDbContext<WecomCorpContext>(options => options.UseInMemoryDatabase("WecomCorp"));
+
+        var context = builder?.Services.BuildServiceProvider().GetRequiredService<WecomCorpContext>();
+        context?.WecomCorps.Add(new Corporation()
+        {
+            CorpId = Environment.GetEnvironmentVariable("HARDMONEY_CORP_ID") ?? string.Empty,
+            CorpSecret = Environment.GetEnvironmentVariable("HARDMONEY_CORP_SECRET") ?? string.Empty,
+            Name = "hardmoney"
+        });
+
+        context?.SaveChanges();
+    }
+    else
+    {
+        builder.Services.AddDbContext<WecomCorpContext>(options =>
+        {
+            options.UseNpgsql(builder.Configuration["PostgresConnectionString"]);
+        });
+    }
+
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+            { Title = "LegGodtApi", Version = "v1" });
     });
-}
+    builder.Services.AddSingleton(new HttpClient());
+    builder.Services.AddSingleton<IAmazonSimpleEmailService>(
+        new AmazonSimpleEmailServiceClient(new EnvironmentVariablesAWSCredentials(), RegionEndpoint.USEast1));
+    builder.Services.AddScoped<Wecom, Wecom>();
+    var app = builder.Build();
 
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo
-        { Title = "LegGodtApi", Version = "v1" });
-});
-builder.Services.AddSingleton(new HttpClient());
-builder.Services.AddSingleton<IAmazonSimpleEmailService>(
-    new AmazonSimpleEmailServiceClient(new EnvironmentVariablesAWSCredentials(), RegionEndpoint.USEast1));
-builder.Services.AddScoped<Wecom, Wecom>();
-var app = builder.Build();
-
-app.Logger.LogInformation("The leg-godt app started");
-app.MapGet("/test", () => "Hello Test!");
-app.MapControllers();
+    app.Logger.LogInformation("The leg-godt app started");
+    app.MapGet("/test", () => "Hello Test!");
+    app.MapControllers();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
+
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LegGodtApi v1"));
+
+    app.UseHttpsRedirection();
+    app.UseStaticFiles();
+
+    app.UseRouting();
+
+    app.UseAuthorization();
+
+    app.MapRazorPages();
+
+    // Obtain a logger instance
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+
+    // Log a message indicating the start of the application
+    logger.LogInformation("The application has started.");
+
+    app.Run();
+
+    if (builder.Configuration["ENV"] is not "Test")
+    {
+        app.EnsureMigrationOfContext<WecomCorpContext>();
+    }
 }
-
-app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LegGodtApi v1"));
-
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapRazorPages();
-
-// Obtain a logger instance
-var logger = app.Services.GetRequiredService<ILogger<Program>>();
-
-// Log a message indicating the start of the application
-logger.LogInformation("The application has started.");
-
-app.Run();
-
-if (builder.Configuration["ENV"] is not "Test")
+catch (Exception ex)
 {
-    app.EnsureMigrationOfContext<WecomCorpContext>();
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
 }
 
 public partial class Program

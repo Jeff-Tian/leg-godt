@@ -4,6 +4,8 @@
 
 > A playground for my .dotnet core application.
 
+[**English**](./README.md) | [简体中文🔥](./README_zh-CN.md)
+
 ## Local test
 
 ```bash
