@@ -29,7 +29,7 @@ dotnet build
 ### 运行
 
 ```shell
-AWS_SECRET_ACCESS_KEY=1234 AWS_ACCESS_KEY_ID=5678 dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"
+AWS_SECRET_ACCESS_KEY=1234 AWS_ACCESS_KEY_ID=5678 ASPNETCORE_ENVIRONMENT=Local dotnet run --project Web/Web.csproj --urls "http://*:3002;https://*:3003"
 
 open http://localhost:3002
 ```
