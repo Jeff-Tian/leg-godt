@@ -38,6 +38,9 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
             { "format", "markdown" },
             { "public", 0 },
         });
+
+        _logger.LogInformation("Sending Yuque request:\n{CurlCommand}", await request.ToCurlCommand());
+
         var response = await _client.SendAsync(request, cancellationToken);
 
         if (response.IsSuccessStatusCode)
