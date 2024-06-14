@@ -34,6 +34,8 @@ public class YuqueController
     }
 
     [HttpPost("strapi")]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<string> Strapi(
         [FromBody] StrapiEntry body, 
         [FromServices] YuqueHandler handler,
