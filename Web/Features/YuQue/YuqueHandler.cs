@@ -35,10 +35,10 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", yuqueToken);
         request.Headers.Add("X-Auth-Token", yuqueToken);
         request.Headers.UserAgent.ParseAdd("LegGodt/1.0 (+https://leg-godt.azurewebsites.net/)");
-        request.Content = JsonContent.Create(new Dictionary<string, object>
+        request.Content = JsonContent.Create(new Dictionary<string, object?>
         {
-            { "title", body.Entry.Full_name },
-            { "body", $"Created at {body.Entry.CreatedAt}" },
+            { "title", body.Entry.Title ?? body.Entry.Full_name },
+            { "body", body.Entry.Content ?? $"Created at {body.Entry.CreatedAt}" },
             { "format", "markdown" },
             { "public", 0 },
             { "status", 0 },
