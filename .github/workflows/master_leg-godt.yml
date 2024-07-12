@@ -179,5 +179,6 @@ jobs:
             cd /root/apps/leg-godt
             
             # 重新启动服务
-            pm2 stop leg-godt
-            pm2 start "AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} Serilog__WriteTo__0__Args__uri=${{secrets.SERILOG__WRITETO__0__ARGS__URI}} YuQue__Token=${{secrets.YUQUE__TOKEN}} dotnet Web.dll --urls \"http://*:3002;https://*:3003\"" --name leg-godt
+            pm2 delete leg-godt
+            pm2 start "AWS_SECRET_ACCESS_KEY=${{secrets.AWS_SECRET_ACCESS_KEY}} AWS_ACCESS_KEY_ID=${{secrets.AWS_ACCESS_KEY_ID}} Serilog__WriteTo__0__Args__uri=${{secrets.SERILOG__WRITETO__0__ARGS__URI}} YuQue__Token=${{secrets.YUQUE__TOKEN}} PostgresConnectionString=${{secrets.PostgresConnectionString}} dotnet Web.dll --urls \"http://*:3002;https://*:3003\"" --name leg-godt
+            pm2 save
