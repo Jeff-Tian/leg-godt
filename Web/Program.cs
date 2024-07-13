@@ -101,12 +101,12 @@ try
     // Log a message indicating the start of the application
     logger.LogInformation("The application has started.");
 
-    app.Run();
-
     if (builder.Configuration["ENV"] is not "Test")
     {
         app.EnsureMigrationOfContext<WecomCorpContext>();
     }
+
+    app.Run();
 }
 catch (Exception ex)
 {
