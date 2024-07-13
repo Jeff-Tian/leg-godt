@@ -22,6 +22,21 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
+      postgres:
+        image: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          POSTGRES_DB: leggodt
+          POSTGRES_USER: leggodt
+          POSTGRES_PASSWORD: nopwd
+        volumes:
+          - postgres:/var/lib/postgresql/data
 
     steps:
       - name: Check out repository code
@@ -31,6 +46,8 @@ jobs:
         env:
           REDIS_HOST: localhost
           REDIS_PASSWORD: ""
+          PostgresConnectionString: "Host=localhost;Port=5432;Database=leggodt;Username=leggodt;Password=nopwd"
+          ENV: test
         run: |
           dotnet test
           
