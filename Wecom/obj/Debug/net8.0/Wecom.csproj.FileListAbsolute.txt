@@ -1,0 +1,16 @@
+/home/runner/work/leg-godt/leg-godt/Wecom/bin/Debug/net8.0/Wecom.deps.json
+/home/runner/work/leg-godt/leg-godt/Wecom/bin/Debug/net8.0/Wecom.dll
+/home/runner/work/leg-godt/leg-godt/Wecom/bin/Debug/net8.0/Wecom.pdb
+/home/runner/work/leg-godt/leg-godt/Wecom/bin/Debug/net8.0/Store.dll
+/home/runner/work/leg-godt/leg-godt/Wecom/bin/Debug/net8.0/Store.pdb
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.csproj.AssemblyReference.cache
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.AssemblyInfoInputs.cache
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.AssemblyInfo.cs
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.csproj.CoreCompileInputs.cache
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.sourcelink.json
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.csproj.Up2Date
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.dll
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/refint/Wecom.dll
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/Wecom.pdb
+/home/runner/work/leg-godt/leg-godt/Wecom/obj/Debug/net8.0/ref/Wecom.dll

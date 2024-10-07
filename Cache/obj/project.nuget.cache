@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "qAo3jksi81M=",
+  "success": true,
+  "projectFilePath": "/home/runner/work/leg-godt/leg-godt/Cache/Cache.csproj",
+  "expectedPackageFiles": [
+    "/home/runner/.nuget/packages/pipelines.sockets.unofficial/2.2.8/pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+    "/home/runner/.nuget/packages/stackexchange.redis/2.6.122/stackexchange.redis.2.6.122.nupkg.sha512",
+    "/home/runner/.nuget/packages/system.io.pipelines/5.0.1/system.io.pipelines.5.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

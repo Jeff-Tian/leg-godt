@@ -1,0 +1,15 @@
+/home/runner/work/leg-godt/leg-godt/Store/bin/Debug/net8.0/Store.deps.json
+/home/runner/work/leg-godt/leg-godt/Store/bin/Debug/net8.0/Store.runtimeconfig.json
+/home/runner/work/leg-godt/leg-godt/Store/bin/Debug/net8.0/Store.dll
+/home/runner/work/leg-godt/leg-godt/Store/bin/Debug/net8.0/Store.pdb
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.csproj.AssemblyReference.cache
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.AssemblyInfoInputs.cache
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.AssemblyInfo.cs
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.csproj.CoreCompileInputs.cache
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.sourcelink.json
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.dll
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/refint/Store.dll
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.pdb
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/Store.genruntimeconfig.cache
+/home/runner/work/leg-godt/leg-godt/Store/obj/Debug/net8.0/ref/Store.dll
