@@ -7,27 +7,17 @@ using Web.Features.Infrastructure;
 
 namespace Web.Features.YuQue;
 
-public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
+public class YuqueHandler(ILogger<YuqueHandler> logger, HttpClient client, IConfiguration configuration)
+    : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
 {
-    private readonly ILogger<YuqueHandler> _logger;
-    private readonly HttpClient _client;
-    private readonly IConfiguration _configuration;
-
-    public YuqueHandler(ILogger<YuqueHandler> logger, HttpClient client, IConfiguration configuration)
-    {
-        _logger = logger;
-        _client = client;
-        _configuration = configuration;
-    }
-
     public async Task<OneOf<Success, Error>> Handle(StrapiEntry body, CancellationToken cancellationToken)
     {
-        _logger.LogInformation("Received Strapi webhook request to {Event} with {Model}: {FullName}", body.Event,
+        logger.LogInformation("Received Strapi webhook request to {Event} with {Model}: {FullName}", body.Event,
             body.Model, body.Entry.Full_name);
 
-        var yuqueToken = _configuration["YuQue:Token"];
+        var yuqueToken = configuration["YuQue:Token"];
         Debug.Assert(yuqueToken is not null);
-        var yuqueBookId = _configuration["YuQue:BookId"];
+        var yuqueBookId = configuration["YuQue:BookId"];
         Debug.Assert(yuqueBookId is not null);
 
         var request = new HttpRequestMessage(HttpMethod.Post,
@@ -44,17 +34,17 @@ public class YuqueHandler : IRequestHandler<StrapiEntry, OneOf<Success, Error>>
             { "status", 0 },
         });
 
-        _logger.LogInformation("Sending Yuque request:\n{CurlCommand}", await request.ToCurlCommand());
+        logger.LogInformation("Sending Yuque request:\n{CurlCommand}", await request.ToCurlCommand());
 
-        var response = await _client.SendAsync(request, cancellationToken);
+        var response = await client.SendAsync(request, cancellationToken);
 
         if (response.IsSuccessStatusCode)
         {
-            _logger.LogInformation("Created Yuque note for {FullName}", body.Entry.Full_name);
+            logger.LogInformation("Created Yuque note for {FullName}", body.Entry.Full_name);
             return new Success();
         }
 
-        _logger.LogError("Error creating Yuque note for {FullName}: {StatusCode}\n{Content}", body.Entry.Full_name,
+        logger.LogError("Error creating Yuque note for {FullName}: {StatusCode}\n{Content}", body.Entry.Full_name,
             response.StatusCode, await response.Content.ReadAsStringAsync(cancellationToken));
         return new Error();
     }
